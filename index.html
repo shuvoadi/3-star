@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Star Pastry Shop - Premium Bangladeshi Cakes & Desserts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <style>
+        :root {
+            --primary: #f06292;
+            --secondary: #ffd54f;
+            --accent: #7b1fa2;
+            --light: #f8f9fa;
+            --dark: #212121;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fff9c4, #f8bbd0);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        /* Fixed balloon animation */
+        .balloon-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .balloon {
+            position: absolute;
+            width: 60px;
+            height: 70px;
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+            opacity: 0.7;
+            bottom: -100px;
+        }
+        
+        .balloon:after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 20px;
+            width: 2px;
+            background: rgba(0,0,0,0.2);
+        }
+        
+        @keyframes float {
+            0% { 
+                transform: translateY(0) rotate(0deg);
+                bottom: -100px;
+            }
+            100% { 
+                transform: translateY(-100vh) rotate(360deg);
+                bottom: 100%;
+            }
+        }
+        
+        .balloon:nth-child(1) { 
+            left: 5%; 
+            background: radial-gradient(circle at 30% 30%, #f44336, #d32f2f);
+            animation-duration: 18s;
+            animation-delay: 0s;
+        }
+        
+        .balloon:nth-child(2) { 
+            left: 15%; 
+            background: radial-gradient(circle at 30% 30%, #2196F3, #0d47a1);
+            animation-duration: 15s;
+            animation-delay: 2s;
+        }
+        
+        .balloon:nth-child(3) { 
+            left: 30%; 
+            background: radial-gradient(circle at 30% 30%, #4CAF50, #2e7d32);
+            animation-duration: 20s;
+            animation-delay: 1s;
+        }
+        
+        .balloon:nth-child(4) { 
+            left: 50%; 
+            background: radial-gradient(circle at 30% 30%, #FF9800, #ef6c00);
+            animation-duration: 17s;
+            animation-delay: 3s;
+        }
+        
+        .balloon:nth-child(5) { 
+            left: 70%; 
+            background: radial-gradient(circle at 30% 30%, #9C27B0, #6a1b9a);
+            animation-duration: 16s;
+            animation-delay: 4s;
+        }
+        
+        .balloon:nth-child(6) { 
+            left: 85%; 
+            background: radial-gradient(circle at 30% 30%, #00BCD4, #00838f);
+            animation-duration: 19s;
+            animation-delay: 5s;
+        }
+        
+        /* Header Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        
+        .hero {
+            background: url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1089&q=80') center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .hero-overlay {
+            background: rgba(0, 0, 0, 0.4);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .hero-content {
+            z-index: 1;
+            color: white;
+            text-align: center;
+        }
+        
+        /* Offer Banner */
+        .offer-banner {
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(123, 31, 162, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(123, 31, 162, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(123, 31, 162, 0); }
+        }
+        
+        /* Section Styles */
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .section-title:after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        /* Pricing Table - FIXED */
+        .pricing-card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: white;
+            position: relative;
+            padding-top: 40px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .pricing-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .price-tag {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.2rem;
+        }
+        
+        .discount-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        
+        /* Review Section */
+        .review-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .review-card:before {
+            content: "“";
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 100px;
+            color: rgba(0, 0, 0, 0.05);
+            font-family: Georgia, serif;
+            line-height: 1;
+            z-index: 0;
+        }
+
+        .review-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .review-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .blur-img {
+            filter: blur(3px);
+        }
+        
+        /* Comparison Section */
+        .comparison-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-table th {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .check-icon {
+            color: #4CAF50;
+            font-size: 1.5rem;
+        }
+        
+        .cross-icon {
+            color: #f44336;
+            font-size: 1.5rem;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 100;
+            transition: all 0.3s;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 30px 0 10px;
+        }
+        
+        /* Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero {
+                height: 80vh;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .pricing-card .card-title {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* Local Images Style */
+        .local-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* New Footer Styles */
+        .new-footer {
+            background: linear-gradient(to right, #333, #222);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .designer-link {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .designer-link:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* Fix for cake names in pricing */
+        .pricing-card .card-title {
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-top: 15px;
+        }
+        
+        .pricing-card .card-body {
+            padding-top: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        
+        /* Gallery slider adjustments */
+        .gallery-slider .slick-slide {
+            padding: 10px;
+        }
+        
+        .gallery-slider .slick-prev:before,
+        .gallery-slider .slick-next:before {
+            color: var(--accent);
+            font-size: 30px;
+        }
+        
+        .gallery-slider .slick-prev {
+            left: -35px;
+        }
+        
+        .gallery-slider .slick-next {
+            right: -35px;
+        }
+        
+        /* Added space between price elements */
+        .price-container {
+            margin: 15px 0;
+        }
+        
+        /* Fixed button positioning */
+        .pricing-btn-container {
+            margin-top: auto;
+            padding-top: 15px;
+        }
+        
+        /* ===== FIXES FOR MOBILE RESPONSIVENESS ===== */
+        
+        /* Review slider mobile fix */
+        @media (max-width: 768px) {
+            .review-slider .slick-slide {
+                padding: 0 15px;
+            }
+            
+            .review-card {
+                margin: 15px 0;
+                width: 100%;
+            }
+            
+            .review-slider .slick-list {
+                padding: 0 20% 0 0 !important;
+            }
+            
+            .review-slider .slick-track {
+                display: flex;
+                align-items: center;
+            }
+        }
+        
+        /* Gallery slider mobile fix */
+        @media (max-width: 992px) {
+            .gallery-slider .slick-prev {
+                left: 5px;
+                z-index: 1;
+            }
+            
+            .gallery-slider .slick-next {
+                right: 5px;
+                z-index: 1;
+            }
+            
+            .gallery-slider .slick-prev:before,
+            .gallery-slider .slick-next:before {
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .local-img {
+                height: 250px;
+            }
+            
+            .review-card {
+                padding: 20px 15px;
+            }
+            
+            .review-card:before {
+                font-size: 80px;
+                left: 10px;
+            }
+            
+            .review-slider .slick-list {
+                padding: 0 !important;
+            }
+            
+            .gallery-slider .slick-prev:before,
+            .gallery-slider .slick-next:before {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Balloon Animation -->
+    <div class="balloon-container">
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+        <div class="balloon"></div>
+    </div>
+
+    <!-- Offer Banner -->
+    <div class="offer-banner text-center py-2 bg-light border-bottom">
+        <h4 class="mb-0 text-white">
+            <i class="fas fa-gift me-2"></i> SPECIAL OFFER: 300 TK DISCOUNT ON ALL CAKES!
+            <span class="badge bg-warning text-dark">Offer ends in 7 days</span>
+        </h4>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="logo.jpg" alt="Logo" width="40" height="40" class="me-2">
+                <h2 class="fw-bold text-primary m-0">
+                    <i class="fas fa-star text-warning"></i> THREE STAR <i class="fas fa-star text-warning"></i>
+                </h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#cakes">Cakes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#why-us">Why Us?</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Scrolling mobile number -->
+    <div class="bg-primary text-white py-1">
+        <marquee behavior="scroll" direction="left" scrollamount="5">
+            📞 For Orders & Inquiries: <strong>01925967564</strong>
+        </marquee>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <h1 class="display-3 fw-bold mb-3">Experience the Sweetest Moments</h1>
+                    <p class="lead mb-4">Premium Quality Cakes & Pastries Crafted with Love and Perfection</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="https://wa.me/8801925967564" class="btn btn-warning btn-lg px-4 py-3 fw-bold">
+                            <i class="fas fa-birthday-cake me-2"></i> ORDER NOW
+                        </a>
+                        <a href="#about" class="btn btn-outline-light btn-lg px-4 py-3">
+                            <i class="fas fa-store me-2"></i> ABOUT US
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cake Varieties Section -->
+    <section id="cakes" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Our Premium Cake Collection</h2>
+            <div class="row g-4">
+                <div class="col-md-4 animate-on-scroll">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-crown text-warning display-4 mb-3"></i>
+                            <h4 class="card-title">Chocolate Delight</h4>
+                            <p class="card-text">Rich, moist chocolate cake with layers of chocolate ganache</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 animate-on-scroll">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-cheese text-warning display-4 mb-3"></i>
+                            <h4 class="card-title">Cheesecake Special</h4>
+                            <p class="card-text">Creamy New York style cheesecake with berry compote</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 animate-on-scroll">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-mug-hot text-warning display-4 mb-3"></i>
+                            <h4 class="card-title">Coffee Infusion</h4>
+                            <p class="card-text">Espresso-infused cake with coffee buttercream</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Cake Pricing (Per KG)</h2>
+            <div class="row g-4">
+                <!-- Pricing Cards will be inserted by JavaScript -->
+            </div>
+            
+            <!-- Free Decoration Section -->
+            <div class="row mt-5">
+                <div class="col-md-10 mx-auto animate-on-scroll">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body text-center p-4">
+                            <h3 class="card-title"><i class="fas fa-gift me-2"></i> FREE DECORATION OFFER!</h3>
+                            <p class="card-text fs-5 mb-0">Order any cake over 3kg and get professional decoration absolutely FREE!</p>
+                            <p class="mb-0"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Delivery Info -->
+            <div class="row mt-4">
+                <div class="col-md-8 mx-auto text-center animate-on-scroll">
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-truck me-2"></i> Delivery Information</h5>
+                        <p class="mb-0">Delivery charge varies by location . Freshly baked cakes delivered within 4-5 hours of order!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="why-us" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Why Choose Three Star?</h2>
+            <div class="comparison-table animate-on-scroll">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Features</th>
+                            <th class="text-center">Three Star</th>
+                            <th class="text-center">Other Shops</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Freshness Guarantee</td>
+                            <td class="text-center"><i class="fas fa-check-circle check-icon"></i></td>
+                            <td class="text-center"><i class="fas fa-times-circle cross-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Baked 4-5 hours before delivery</td>
+                            <td class="text-center"><i class="fas fa-check-circle check-icon"></i></td>
+                            <td class="text-center"><i class="fas fa-times-circle cross-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Premium Ingredients</td>
+                            <td class="text-center"><i class="fas fa-check-circle check-icon"></i></td>
+                            <td class="text-center"><i class="fas fa-times-circle cross-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Competitive Pricing</td>
+                            <td class="text-center"><i class="fas fa-check-circle check-icon"></i></td>
+                            <td class="text-center"><i class="fas fa-times-circle cross-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Free Decoration (3kg+ cakes)</td>
+                            <td class="text-center"><i class="fas fa-check-circle check-icon"></i></td>
+                            <td class="text-center"><i class="fas fa-times-circle cross-icon"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Custom Design Options</td>
+                            <td class="text-center"><i class="fas fa-check-circle check-icon"></i></td>
+                            <td class="text-center"><i class="fas fa-times-circle cross-icon"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Reviews -->
+    <section id="reviews" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Customer Reviews</h2>
+            <div class="review-slider">
+                <!-- Reviews will be inserted by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">Our Cake Gallery</h2>
+            <div class="gallery-slider">
+                <!-- Gallery items will be inserted by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 animate-on-scroll">
+                    <h2 class="section-title text-start">About Three Star</h2>
+                    <p class="lead">Creating Sweet Memories Since December 2024</p>
+                    <p>At Three Star, we believe every celebration deserves a perfect cake. Our master pastry chefs combine traditional Bangladeshi recipes with innovative techniques to create cakes that not only look spectacular but taste divine.</p>
+                    <p>We use only the finest local ingredients - premium chocolate, fresh dairy cream, organic eggs, and seasonal fruits to ensure every bite is a moment of pure bliss.</p>
+                    <div class="mt-4">
+                        <a href="https://wa.me/8801925967564" class="btn btn-success btn-lg">
+                            <i class="fab fa-whatsapp me-2"></i> Chat on WhatsApp
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 animate-on-scroll">
+                    <div class="card border-0">
+                        <img src="about us.jpg" alt="Three Star Bakery">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Footer -->
+    <footer class="new-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="copyright">
+                        <p class="mb-1">24 hours open in online</p>
+                        <p class="mb-0">&copy; 2025 Three Star Pastry Shop. All Rights Reserved.</p>
+                        <p>Designed by <a href="https://dhwanitech.com" class="designer-link" target="_blank">Dhwani Tech</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/8801925967564" class="whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    
+    <script>
+        // Cake data
+        const cakes = [
+            { name: "Chocolate", price: 2200 },
+            { name: "Vanilla", price: 2200 },
+            { name: "Black Forest", price: 2400 },
+            { name: "Red Velvet", price: 2600 },
+            { name: "Nutella", price: 2800 },
+            { name: "Caramel Butterscotch", price: 2800 },
+            { name: "Coffee Flavor", price: 2400 },
+            { name: "Strawberry", price: 2400 },
+            { name: "Mango", price: 2400 },
+            { name: "Cheese Cake", price: 3000 }
+        ];
+
+        // Reviews data
+        const reviews = [
+            { 
+                name: "Namzin Akter", 
+                fb: "https://www.facebook.com/Nazmin.Laboni", 
+                text: "Good Quality products. The cake was moist and delicious, exactly as described!",
+                rating: 5
+            },
+            { 
+                name: "Sayed Arman", 
+                fb: "https://www.facebook.com/sayed.arman.776604", 
+                text: "Decoration is top notch! The birthday cake was a masterpiece that tasted even better than it looked.",
+                rating: 5
+            },
+            { 
+                name: "Fatema Akter", 
+                fb: "https://www.facebook.com/fatemakternila", 
+                text: "Delivered within time and cake was also good. Fresh and perfectly baked right before delivery.",
+                rating: 4
+            }
+        ];
+        
+        // Gallery images - LOCAL
+        const galleryImages = [
+            "Three Star 1.jpg",
+            "Three Star 2.jpg",
+            "Three Star 3.jpg",
+            "Three Star 4.jpg",
+            "Three Star 5.jpg",
+            "Three Star 6.jpg",
+            "Three Star 7.jpg",
+            "Three Star 8.jpg",
+            "Three Star 9.jpg",
+            "Three Star 10.jpg",
+            "Three Star 11.jpg",
+            "Three Star 12.jpg",
+            "Three Star 13.jpg",
+            "Three Star 14.jpg",
+            "Three Star 15.jpg",
+            "Three Star 16.jpg",
+            "Three Star 17.jpg",
+            "Three Star 18.jpg",
+            "Three Star 19.jpg",
+            "Three Star 20.jpg"
+        ];
+
+        // Function to generate pricing cards
+        function generatePricingCards() {
+            const pricingContainer = document.querySelector('#pricing .row');
+            
+            cakes.forEach(cake => {
+                const originalPrice = cake.price + 300;
+                
+                const card = `
+                <div class="col-md-4 col-lg-3 mb-4 animate-on-scroll">
+                    <div class="pricing-card h-100">
+                        <div class="discount-badge">SAVE 300৳</div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">${cake.name}</h5>
+                            <div class="price-container">
+                                <p class="mb-1"><del class="original-price">${originalPrice} TK</del></p>
+                                <p class="price-tag mb-1">${cake.price} TK</p>
+                            </div>
+                            <div class="pricing-btn-container">
+                                <a href="https://wa.me/8801925967564" class="btn btn-primary">
+                                    <i class="fas fa-shopping-cart me-1"></i> Order Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+                
+                pricingContainer.innerHTML += card;
+            });
+        }
+
+        // Function to generate reviews
+        function generateReviews() {
+            const reviewContainer = document.querySelector('.review-slider');
+            
+            reviews.forEach(review => {
+                const stars = '<i class="fas fa-star text-warning"></i>'.repeat(review.rating);
+                
+                const reviewCard = `
+                <div class="review-card">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://randomuser.me/api/portraits/women/${Math.floor(Math.random() * 50)}.jpg" 
+                             class="review-img blur-img me-3" alt="${review.name}">
+                        <div>
+                            <h5 class="mb-0">${review.name}</h5>
+                            <small><a href="${review.fb}" target="_blank">View Facebook</a></small>
+                        </div>
+                    </div>
+                    <p class="mb-2">${stars}</p>
+                    <p class="mb-0">"${review.text}"</p>
+                </div>
+                `;
+                
+                reviewContainer.innerHTML += reviewCard;
+            });
+        }
+        
+        // Function to generate gallery with local images
+        function generateGallery() {
+            const galleryContainer = document.querySelector('.gallery-slider');
+            
+            galleryImages.forEach((img, index) => {
+                const galleryItem = `
+                <div>
+                    <img src="${img}" alt="Three Star Cake ${index+1}" class="local-img">
+                </div>
+                `;
+                
+                galleryContainer.innerHTML += galleryItem;
+            });
+        }
+
+        // Initialize sliders
+        function initSliders() {
+            // Review slider
+            $('.review-slider').slick({
+                dots: true,
+                arrows: false,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                centerMode: true,
+                centerPadding: '60px',
+                variableWidth: true,
+                autoplay: true,
+                autoplaySpeed: 5000,
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            centerMode: false,
+                            variableWidth: false,
+                            centerPadding: '20px'
+                        }
+                    },
+                    {
+                        breakpoint: 576,
+                        settings: {
+                            centerMode: false,
+                            variableWidth: false,
+                            centerPadding: '10px'
+                        }
+                    }
+                ]
+            });
+            
+            // Gallery slider
+            $('.gallery-slider').slick({
+                dots: true,
+                arrows: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 3000,
+                responsive: [
+                    {
+                        breakpoint: 992,
+                        settings: {
+                            slidesToShow: 2
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 1
+                        }
+                    }
+                ]
+            });
+        }
+
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            
+            elements.forEach(element => {
+                const position = element.getBoundingClientRect();
+                
+                // If element is in viewport
+                if(position.top < window.innerHeight * 0.9 && !element.classList.contains('visible')) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            generatePricingCards();
+            generateReviews();
+            generateGallery();
+            initSliders();
+            
+            // Initial animation check
+            animateOnScroll();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', animateOnScroll);
+        });
+    </script>
+</body>
+</html>
